@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email — AXON</title>
+
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/verify.css">
+</head>
+
+<body>
+    <div class="bg-animation">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="verify-container">
+        <h1>Verify your email!</h1>
+
+        <p class="subtitle">
+            We sent a 6-digit code to
+            <span id="display-email">your email</span>.
+        </p>
+
+        <div class="otp-inputs">
+            <input type="text" maxlength="1" class="otp-box" autofocus>
+            <input type="text" maxlength="1" class="otp-box">
+            <input type="text" maxlength="1" class="otp-box">
+            <input type="text" maxlength="1" class="otp-box">
+            <input type="text" maxlength="1" class="otp-box">
+            <input type="text" maxlength="1" class="otp-box">
+        </div>
+
+        <button class="verify-btn" onclick="verify()">Verify</button>
+
+        <p id="result" class="result-msg"></p>
+    </div>
+
+    <script>
+    const savedEmail = localStorage.getItem('userEmail') || "";
+    document.getElementById('display-email').textContent = savedEmail || "your email";
+
+    const inputs = document.querySelectorAll('.otp-box');
+
+    inputs.forEach((input, index) => {
+        // Handle normal typing and auto-focus next box
+        input.addEventListener('input', (e) => {
+            if (e.inputType === "deleteContentBackward") return; // Don't jump forward on backspace
+            
+            if (input.value && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        });
+
+        // Handle backspace to move to previous box
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !input.value && index > 0) {
+                inputs[index - 1].focus();
+            }
+        });
+
+        // NEW: Handle pasting the entire code
+        input.addEventListener('paste', (e) => {
+            e.preventDefault(); // Stop the default paste action
+            const pastedData = e.clipboardData.getData('text').slice(0, inputs.length); // Get first 6 chars
+            
+            if (!pastedData) return;
+
+            // Distribute characters into the boxes
+            const chars = pastedData.split('');
+            chars.forEach((char, i) => {
+                if (inputs[i]) {
+                    inputs[i].value = char;
+                }
+            });
+
+            // Focus the last filled box or the next empty one
+            const nextFocus = chars.length < inputs.length ? chars.length : inputs.length - 1;
+            inputs[nextFocus].focus();
+        });
+    });
+
+    function verify() {
+        const code = Array.from(inputs)
+            .map(i => i.value.trim())
+            .join('')
+            .replace(/\s+/g, '');
+
+        if (code.length < 6) {
+            document.getElementById("result").innerText = "Please enter the full 6-digit code.";
+            return;
+        }
+
+        if (!savedEmail) {
+            document.getElementById("result").innerText = "No email found. Please sign up again.";
+            return;
+        }
+
+        fetch("http://127.0.0.1:5000/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: savedEmail.toLowerCase().trim(),
+                code: code
+            })
+        })
+        .then(async res => {
+            const data = await res.json();
+            document.getElementById("result").innerText = data.message || "Response received";
+
+            if (res.ok) {
+                window.location.href = "/login";
+            }
+        })
+        .catch(() => {
+            document.getElementById("result").innerText = "Connection error.";
+        });
+    }
+    </script>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+/* =========================================
+   AXON VERIFY PAGE STYLES (NO BOX)
+   ========================================= */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.verify-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 500px; /* Matching Signup container width */
+    text-align: center;
+    padding: 20px;
+}
+
+.verify-container h1 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 3.5rem;
+    color: #333;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
+}
+
+.subtitle {
+    font-family: 'Manrope', sans-serif;
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+#display-email {
+    color: #00A4F4;
+    font-weight: 800;
+}
+
+.otp-inputs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.otp-box {
+    width: 60px;
+    height: 75px;
+    border: 2px solid #ddd;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #333;
+    background: rgba(255, 255, 255, 0.85);
+    transition: all 0.3s ease;
+}
+
+.otp-box:focus {
+    outline: none;
+    border-color: #0084D4;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0, 132, 212, 0.2);
+    transform: translateY(-2px);
+}
+
+.verify-btn {
+    width: 100%;
+    max-width: 450px;
+    padding: 18px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(to right, #88D8FF, #0084D4);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 132, 212, 0.3);
+    display: inline-block;
+    transition: transform 0.1s ease-out, box-shadow 0.2s ease;
+    will-change: transform;
+    transform-origin: center;
+}
+
+/* SPRINGY CLICK EFFECT */
+.verify-btn:active {
+    transform: scale(0.92) !important;
+    box-shadow: 0 2px 5px rgba(0, 132, 212, 0.2);
+}
+
+.result-msg {
+    margin-top: 25px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #F40039;
+}
+
+/* Responsive adjustment */
+@media (max-width: 600px) {
+    .verify-container h1 {
+        font-size: 2.5rem;
+    }
+    .otp-box {
+        width: 45px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up — AXON</title>
+
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/signup.css">
+</head>
+
+<body>
+    <div class="bg-animation">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="signup-container">
+
+        <form class="signup-form" id="signupForm">
+
+            <h1>Get Started!</h1>
+
+            <div class="input-field">
+                <label>Email address</label>
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+
+            <div class="input-field">
+                <div class="label-row">
+                    <label>Password</label>
+                    <a href="#" class="forgot-pass">forgot password</a>
+                </div>
+
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Password" required>
+                    <span class="toggle-password" id="togglePassword">Show</span>
+                </div>
+            </div>
+
+            <button type="submit" class="signup-btn">Sign up</button>
+
+            <p id="result" class="result-msg"></p>
+
+            <p class="login-text">
+                Already have an account? <a href="/login">Login</a>
+            </p>
+
+            <div class="divider"><span>Or</span></div>
+
+            <div class="social-btns">
+                <button type="button" class="social-btn">
+                    <img src="./images/google-logo.png" alt="Google"> Sign up with Google
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("signupForm");
+    const resultBox = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        resultBox.style.color = "#0084D4";
+        resultBox.innerText = "Creating account...";
+
+        try {
+            const res = await fetch("http://127.0.0.1:5000/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json().catch(() => ({}));
+
+            if (res.ok) {
+                localStorage.setItem("userEmail", email.toLowerCase().trim());
+                resultBox.innerText = data.message || "Signup successful!";
+                window.location.href = "/verify";
+            } else {
+                resultBox.style.color = "#ff4d4d";
+                resultBox.innerText = data.message || "Signup failed.";
+            }
+
+        } catch (err) {
+            console.error(err);
+            resultBox.style.color = "#ff4d4d";
+            resultBox.innerText = "Server connection failed.";
+        }
+    });
+});
+</script>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>

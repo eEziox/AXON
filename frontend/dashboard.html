@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXON | Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./css/style.css"> 
+    <link rel="stylesheet" href="./css/dashboard.css"> 
+</head>
+
+<body class="figma-bg">
+
+    <script>
+        // Check if user is logged in
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            window.location.href = "/signup";
+        }
+    </script>
+
+    <!-- background animation (matched with landing page theme) -->
+    <div class="bg-animation">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+    </div>
+
+    <header class="nav">
+        <a href="#" class="logo">
+            <img src="./images/logo.png" alt="logo">
+            <h1><span class="logotext">AXON</span></h1>
+        </a>
+        <nav class="nav-links">
+            <a href="#" onclick="logout()">Logout</a>
+            <button class="join" onclick="window.location.href='#'">History</button>
+        </nav>
+    </header>
+
+    <main class="figma-container">
+        <div class="workspace-grid dashboard-grid">
+            <div class="top-controls-card centered-card">
+                <div class="input-set">
+                    <label>Condition</label>
+                    <select id="model-selector">
+                        <option value="hemorrhage">Intracranial Hemorrhage (CT)</option>
+                        <option value="tumor">Intracranial Tumor (MRI)</option>
+                        <option value="stenosis">Coronary Artery Stenosis (XCA)</option>
+                    </select>
+                </div>
+
+                <div class="input-set full-width">
+                    <label>Upload Medical Imaging Scan</label>
+                    <div class="file-box">
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                        <span id="file-name-display">Choose Image</span>
+                        <label for="file-input" class="browse-label">Browse</label>
+                    </div>
+                </div>
+
+                <button class="cta analyze-cta" id="run-inference">Analyze Imaging ></button>
+            </div>
+
+            <div class="scan-display-card preview-card">
+                <div id="result-display" class="scan-viewport">
+                    <p class="placeholder-text">Prediction preview will appear here after upload.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./js/dashboard.js"></script>
+</body>
+</html>

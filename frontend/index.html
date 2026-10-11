@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>
+        AXON
+    </title>
+
+    <link rel="icon" type="image/png" href="./images/logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="bg-animation" id="top">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+    </div>
+
+    <header class="nav">
+        <a href="#" class="logo">
+            <img src="./images/logo.png" alt="logo">
+            <h1><span class="logotext">AXON</span></h1>
+        </a>
+        <nav class="nav-links">
+            <a class="dashboard" href="#" onclick="checkLoginAndGoToDashboard()">Dashboard</a>
+            <a href="#services-target">About</a>
+            <a href="#footer-target" onclick="highlightEmail()">Contact us</a>
+            <button class="join" onclick="window.location.href='/signup'">Join us</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="left">
+            <h1>
+                <span class="blue">Neuro-Cardiovascular</span>
+                <br>Diagnostics
+            </h1>
+            <p>
+                Upload CT, MRI, or XCA scans and recieve <span>AI-assisted</span> analysis able to detect
+                <span class="black">intracranial diseases</span> and
+                <span class="black">coronary artery stenoses</span>. <span class="axon">AXON</span> assists generalist physicians, making time-critical care both faster and more accessible.
+            </p>
+
+            <div class="cta-in">
+                <button class="cta" onclick="window.location.href='/signup'">
+                    Analyze Medical Imaging
+                    <img src="./images/arrow.png" alt="arrow">
+                </button>
+            </div>
+
+            <p class="disclaimer">
+                Disclaimer: Results are based on internal validation metrics
+                <br>
+                and are intended to <span class="support">support</span>, not replace, clinical judgment.
+            </p>
+        </div>
+
+        <div class="right">
+            <div class="badge">
+                Trained on
+                <br>
+                <strong>20,000+</strong>
+                <br>
+                images!
+            </div>
+            <div class="yolo">
+                <img src="./images/brain.png" alt="yolo">
+            </div>
+            <div class="accuracy">
+                <img src="./images/star.png" alt="star">
+                <div>
+                    <strong>~73% Detection Accuracy</strong>
+                    <br>
+                    Average accuracy across all core medical diagnostic models.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="herotwo" id="services-target">
+        <h2 class="title">
+            <span class="service">Services</span> we offer
+        </h2>
+
+        <div class="services-container">
+            <div class="service-box">
+                <strong>Intracranial Hemorrhage</strong>
+                <p>
+                    Bounding-box detection across CT scan subtypes including intraparenchymal, intraventricular, subarachnoid, and subdural bleeding.
+                </p>
+            </div>
+
+            <div class="service-box">
+                <strong>Intracranial Tumor</strong>
+                <p>
+                    High-precision instance segmentation for boundary mapping of glioma, meningioma, and pituitary tumors.
+                </p>
+            </div>
+
+            <div class="service-box">
+                <strong>Coronary Arterial Stenosis</strong>
+                <p>
+                    Instance segmentation highlighting coronary arterial narrowing across the American Heart Association's 16-segment coronary tree.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section">
+        <h2>Easily use our services in 3 simple <span>steps.</span></h2>
+        
+        <form class="steps-container" onsubmit="event.preventDefault(); stepSignup();">
+            <div class="input-group">
+                <label><img src="./images/mail-icon.png" alt=""> Email Address</label>
+                <input type="email" id="step-email" placeholder="Enter Your Email Address" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="step-password" placeholder="Enter Your Password" required>
+                    <span class="toggle-password" id="toggleStepPassword">Show</span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Upload Medical Imaging Scan</label>
+                <label for="scan-upload" class="file-upload-btn">
+                    Choose Image
+                </label>
+                <input type="file" id="scan-upload" accept="image/*" style="display:none">
+            </div>
+
+            <button type="submit" class="btn-get-started">
+                Get started <img src="./images/check-circle.png" alt="">
+            </button>
+
+            <p class="login-prompt">
+                Already have an account? <a href="/login" id="login-link">Login here</a>
+            </p>
+
+            <p id="step-result" style="margin-top:10px; font-weight:700; color:#0084D4;"></p>
+        </form>
+    </section>
+
+    <footer class="footer" id="footer-target">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <div class="logo">
+                    <img src="./images/logo.png" alt="logo">
+                    <h1><span class="logotext">AXON</span></h1>
+                </div>
+                <p class="footer-tagline">The future of neuro-cardiovascular diagnostics through precision AI.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="#services-target">About</a></li>
+                    <li><a href="#footer-target" onclick="highlightEmail()">Contact Us</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p class="footer-email" id="contact-email">axon.systems.tech@gmail.com</p>
+                <div class="status-indicator">
+                    <span class="dot"></span> System Status: Operational
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="bottom-content">
+                <p>© 2026 AXON — Acquire. Analyze. Acts on.</p>
+                
+                <div class="footer-credits-wrapper">
+                    <p class="tech-stack">Roboflow • Kaggle • Ultralytics</p>
+                    <button id="scrollToTop" class="scroll-top-btn">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M18 15l-6-6-6 6"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+function highlightEmail() {
+    const email = document.getElementById('contact-email');
+    email.classList.add('highlight-flash');
+    setTimeout(() => email.classList.remove('highlight-flash'), 2500);
+}
+
+async function stepSignup() {
+    const email = document.getElementById("step-email").value;
+    const password = document.getElementById("step-password").value;
+
+    try {
+        const res = await fetch("http://127.0.0.1:5000/signup", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+        document.getElementById("step-result").innerText = data.message;
+
+        if (res.ok) {
+            localStorage.setItem("userEmail", email.toLowerCase().trim());
+            window.location.href = "/verify";
+        }
+
+    } catch (err) {
+        document.getElementById("step-result").innerText = "Server connection failed.";
+    }
+}
+
+function checkLoginAndGoToDashboard() {
+    if (localStorage.getItem("isLoggedIn") === "true") {
+        window.location.href = "/dashboard";
+    } else {
+        window.location.href = "/signup";
+    }
+}
+</script>
+
+<script src="./js/script.js"></script>
+</body>
+</html>
